@@ -9,8 +9,8 @@
  |
  |  Theme #2 by raiidens (@ tumblr)
  |  Published July 2015
- |  Updated September 2015
- |  Ver. 1.05
+ |  Updated October 2015
+ |  Ver. 1.06
  |
  |  Edit as much as you like, but please do not
  |  claim as your own work, and leave credit somewhere.
@@ -185,7 +185,12 @@ blockquote {
     text-align:justify;
 }
 blockquote p {display:block!important;}
-blockquote img {max-width:220px!important;}
+blockquote img {
+	display:block;
+	max-width:450px;
+	width:auto;
+	height:auto;
+}
 
 #posts {
     {block:IfNotMirrorLayout}float:right;{/block:IfNotMirrorLayout}
@@ -819,7 +824,7 @@ ol.notes li.note{
             <li class="post quote">
             {Quote}
             {block:Source}
-            <h3><div class="source">— {Source}</div></h3>
+            <h3><div class="source">â€” {Source}</div></h3>
             {/block:Source}
             </li>
             {/block:Quote}
