@@ -9,8 +9,8 @@
  |
  |  Theme #2 by raiidens (@ tumblr)
  |  Published July 2015
- |  Updated October 2015
- |  Ver. 1.06
+ |  Updated February 2016
+ |  Ver. 1.08
  |
  |  Edit as much as you like, but please do not
  |  claim as your own work, and leave credit somewhere.
@@ -48,6 +48,8 @@
 <meta name="color:Scrollbar" content="#C1DAD6">
 <meta name="color:Scrollbar border" content="#7BDAD3">
 <meta name="color:Scrollbar background" content="#FFFFFF">
+<meta name="color:Text highlight" content="#FFFFFF">
+<meta name="color:Text highlight background" content="#494142">
 
 <meta name="color:Post background" content="#FFFFFF">
 <meta name="color:Post title" content="#000000">
@@ -105,7 +107,7 @@
 <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
 {block:IfInfiniteScrolling}
-<script type="text/javascript" src="http://codysherman.tumblr.com/tools/infinite-scrolling/code"></script>
+<script type="text/javascript" src="http://static.tumblr.com/o4povtk/zYLo1itkm/codyshermaninfscroll.js"></script>
 {/block:IfInfiniteScrolling}
 
 <style type="text/css">
@@ -121,19 +123,20 @@
     border: 1px double {color:Scrollbar border};
 }
 
-iframe#tumblr_controls {
+.tmblr-iframe {
     right:3px !important;
     position:fixed !important;
+	z-index:99999999 !important;
     opacity: 0.3;
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
 }
-iframe#tumblr_controls:hover {opacity: 1.0;}
-::selection {background-color: transparent;}
-::-moz-selection {background-color: transparent;}
-::-webkit-selection {background-color: transparent;}
+.tmblr-iframe:hover {opacity: 1.0;}
+::selection {background-color:{color:Text highlight background}; color:{color:Text highlight};}
+::-moz-selection {background-color:{color:Text highlight background}; color:{color:Text highlight};}
+::-webkit-selection {background-color:{color:Text highlight background}; color:{color:Text highlight};}
 
 html, body, p, h1, h2, h3, h4, h5, h6, blockquote {
     margin:0;
@@ -883,25 +886,27 @@ ol.notes li.note{
             </li>
             {/block:Video}
 
+            
             {block:Audio}
             <li class="post audio">
-            {block:AlbumArt}
-            <img src="{AlbumArtURL}">
-            {/block:AlbumArt}
-            {AudioPlayer}
+            {block:AlbumArt}<div style="float:left;"><img src="{AlbumArtURL}" width="150" height="150"></div>{/block:AlbumArt}
+            <div style="position:relative; left:10px; top:5px">
             {block:trackname}<div class="aline"><b>track name:</b> {trackname}</div>{/block:trackname}
             {block:artist}<div class="aline"><b>artist:</b> {artist}</div>{/block:artist}
             {block:album}<div class="aline"><b>album:</b> {album}</div>{/block:album}
             {block:playcount}<div class="aline"><b>play count:</b> {playcount}</div>{/block:playcount}
+            </div>
+            <div style="clear:both;"></div>
+            {block:AudioPlayer}{AudioPlayer}{/block:AudioPlayer}
             {block:IfShowCaptions}
             {block:Caption}
-            <div class="caption">{Caption}</div>
+            {Caption}
             {/block:Caption}
             {/block:IfShowCaptions}
             {block:IfNotShowCaptions}
             {block:PermalinkPage}
             {block:Caption}
-            <div class="caption">{Caption}</div>
+            {Caption}
             {/block:Caption}
             {/block:PermalinkPage}
             {/block:IfNotShowCaptions}
@@ -927,4 +932,17 @@ ol.notes li.note{
             </ol>
     </div>
 </body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('p').each(function() {
+        var text = $(this).html();
+        var regex = /\(Source:.*\)+/ig;
+        text = text.replace(regex, '');
+        regex = /\(via(.*)\)+/ig;
+        text = text.replace(regex, '');
+        $(this).html(text);
+    });
+});
+</script>
 </html>
